@@ -357,7 +357,12 @@ hr {
       align-items: center;
       justify-content: center;
       margin: 20px auto;
+      transition: opacity 1s ease-in-out, visibility 1s ease-in-out; /* Adjust timing as needed */
+      opacity: 1;
+      visibility: visible;
     }
+
+
     .square {
       width: 100px;
       height: 100px;
@@ -372,6 +377,17 @@ hr {
     }
     
 
+    #header, #signup-form, footer {
+      opacity: 0;
+      display: none;
+      transition: opacity 1s ease-in-out
+    }
+
+    #instruction {
+      transition: opacity 1s ease-in-out;
+      opacity: 1; /* Start fully visible */
+  }
+    
     
 
 /* Section/Article */

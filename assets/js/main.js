@@ -203,99 +203,189 @@
 
 })();
 
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     var pawn = document.getElementById('pawn');
+//     var end = document.getElementById('end');
+//     var header = document.getElementById('header');
+//     var signupForm = document.getElementById('signup-form');
+//     var footer = document.getElementById('footer');
+//     var chessboard = document.getElementById('chessboard');
+// 	var instruction = document.getElementById('instruction');
+
+//     // Function to reveal content smoothly
+// 	function revealContent() {
+// 		// Apply fade-out effect to chessboard
+// 		chessboard.style.opacity = '0'
+// 		instruction.style.opacity = '0';
+	
+// 		// Wait for the fade-out transition to finish before hiding and showing content
+// 		setTimeout(function() {
+// 			chessboard.style.display = 'none'; // Completely hide the chessboard
+// 			instruction.style.display = 'none';
+	
+// 			// Prepare elements for fade-in
+// 			header.style.opacity = '0';
+// 			header.style.display = 'block';
+// 			footer.style.opacity = '0';
+// 			footer.style.display = 'block';
+	
+// 			// Start the fade-in effect for header, signupForm, and footer
+// 			setTimeout(function() {
+// 				header.style.opacity = '1';
+// 				signupForm.style.opacity = '1';
+// 				footer.style.opacity = '1';
+// 			}, 10); // Short delay to ensure properties are applied
+	
+// 		}, 1000); // This delay should match the CSS transition timing for the chessboard
+// 	}
+	
+// 	// Event listeners for pawn interaction remain unchanged
+	
+	
+
+//     // Desktop: Drag and Drop
+//     pawn.addEventListener('dragstart', function(event) {
+//         event.dataTransfer.setData('text/plain', null);
+//     });
+//     end.addEventListener('dragover', function(event) {
+//         event.preventDefault();
+//     });
+//     end.addEventListener('drop', function(event) {
+//         event.preventDefault();
+//         end.appendChild(pawn); // Move the pawn to the end square
+//         revealContent();
+//     });
+
+//     // Mobile: Tap
+//     pawn.addEventListener('touchend', function(event) {
+//         end.appendChild(pawn); // Visual indication that pawn has moved
+//         revealContent();
+//     });
+
+//     // Initially hide the main content
+//     header.style.display = 'none';
+//     signupForm.style.display = 'none';
+//     footer.style.display = 'none';
+// });
 document.addEventListener('DOMContentLoaded', function() {
     var pawn = document.getElementById('pawn');
+    var start = document.getElementById('start');
     var end = document.getElementById('end');
     var header = document.getElementById('header');
     var signupForm = document.getElementById('signup-form');
     var footer = document.getElementById('footer');
+    var chessboard = document.getElementById('chessboard');
+	var instruction = document.getElementById('instruction');
 
+    function movePawn(target) {
+        if (target === start || target === end) {
+            target.appendChild(pawn); // Move the pawn to the target square
+        }
+        revealContent(); // Proceed to reveal the content
+    }
+
+    function revealContent() {
+        // Fade out effect for chessboard and instruction
+        chessboard.style.opacity = '0';
+		instruction.style.opacity = '0';
+
+        setTimeout(function() {
+            chessboard.style.display = 'none';
+			instruction.style.display = 'none';
+
+            // Prepare elements for fade-in
+            header.style.opacity = '0';
+            header.style.display = 'block';
+            footer.style.opacity = '0';
+            footer.style.display = 'block';
+
+            // Fade-in effect for content
+            setTimeout(function() {
+                header.style.opacity = '1';
+                signupForm.style.opacity = '1';
+                footer.style.opacity = '1';
+				startTypewriterEffect();
+            }, 10);
+        }, 1000); // Match this delay with your CSS transition
+    }
+
+    // Drag and Drop for Desktop
     pawn.addEventListener('dragstart', function(event) {
-        event.dataTransfer.setData('text', ''); // for Firefox compatibility
+        event.dataTransfer.setData('text/plain', null); // Necessary for Firefox
     });
 
-    end.addEventListener('dragover', function(event) {
-        event.preventDefault(); // Necessary to allow dropping
+    // Allow both start and end as valid drop targets
+    var dropTargets = [start, end];
+    dropTargets.forEach(function(target) {
+        target.addEventListener('dragover', function(event) {
+            event.preventDefault(); // Allow dropping
+        });
+
+        target.addEventListener('drop', function(event) {
+            event.preventDefault();
+            movePawn(target); // Move the pawn based on the drop target
+        });
     });
 
-    end.addEventListener('drop', function(event) {
-        event.preventDefault();
-        header.style.display = 'block';
-        footer.style.display = 'block';
-        document.getElementById('chessboard').style.display = 'none';
+    // Touch Event for Mobile
+    pawn.addEventListener('touchend', function() {
+        // Determine if the touchend event is closer to start or end to decide the move
+        // This is a simple approach, you might need to enhance this based on your layout
+        var touchEndClosest = (Math.abs(pawn.getBoundingClientRect().top - start.getBoundingClientRect().top) < Math.abs(pawn.getBoundingClientRect().top - end.getBoundingClientRect().top)) ? start : end;
+        movePawn(touchEndClosest);
     });
 
-    // Initially hide the content
+    // Initially hide the main content
     header.style.display = 'none';
     signupForm.style.display = 'none';
     footer.style.display = 'none';
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    var chessboardContainer = document.getElementById('chessboard-container');
-    var pawn = document.getElementById('pawn');
-    var end = document.getElementById('end');
-
-    pawn.addEventListener('click', function() {
-        // Move pawn to the end position
-        end.appendChild(pawn);
-        // Hide chessboard after pawn movement
-        setTimeout(function() {
-            chessboardContainer.style.display = 'none';
-            // Show the main content
-            document.querySelector('header').style.display = 'block';
-            document.querySelector('#signup-form').style.display = 'block';
-            document.querySelector('footer').style.display = 'block';
-        }, 500); // Adjust timing as needed
-    });
-
-    // Initially hide the main content
-    document.querySelector('header').style.display = 'none';
-    document.querySelector('#signup-form').style.display = 'none';
-    document.querySelector('footer').style.display = 'none';
-});
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Target both elements
-    var typewriterHeader = document.querySelector('#header h1');
-    var typewriterParagraph = document.querySelector('#header p');
+function startTypewriterEffect() {
+	   // Target both elements
+	   var typewriterHeader = document.querySelector('#header h1');
+	   var typewriterParagraph = document.querySelector('#header p');
+   
+	   // Text content for both elements
+	   var headerText = typewriterHeader.innerText;
+	   var paragraphText = typewriterParagraph.innerHTML; // Using innerHTML to include <br> tags
+   
+	   // Typing speed in milliseconds
+	   var headerTypingSpeed = 150; // Original typing speed for header
+	   var paragraphTypingSpeed = 30; // Increased typing speed for paragraph
+   
+	   // Clear initial text content
+	   typewriterHeader.innerText = '';
+	   typewriterParagraph.innerHTML = '';
+   
+	   // Typewriter effect function with adjustable typing speed
+	   function typeWriter(element, text, i, typingSpeed, isParagraph = false) {
+		   if (i < text.length) {
+			   if(isParagraph && text.charAt(i) === '<' && text.substring(i, i+4) === '<br>') {
+				   element.innerHTML += '<br>';
+				   i += 4; // Skip the <br> tag characters
+			   } else {
+				   element.innerHTML += text.charAt(i);
+				   i++;
+			   }
+			   setTimeout(function() {
+				   typeWriter(element, text, i, typingSpeed, isParagraph);
+			   }, typingSpeed);
+		   }
+	   }
+   
+	   // Initiate typewriting effect for header with its specific speed
+	   typeWriter(typewriterHeader, headerText, 0, headerTypingSpeed);
+   
+	   // Initiate typewriting effect for paragraph with its specific speed
+	   // Optionally, delay the start until the header is complete
+	   setTimeout(function() {
+		   typeWriter(typewriterParagraph, paragraphText, 0, paragraphTypingSpeed, true);
+	   }, headerText.length * headerTypingSpeed);
+}
 
-    // Text content for both elements
-    var headerText = typewriterHeader.innerText;
-    var paragraphText = typewriterParagraph.innerHTML; // Using innerHTML to include <br> tags
 
-    // Typing speed in milliseconds
-    var headerTypingSpeed = 150; // Original typing speed for header
-    var paragraphTypingSpeed = 75; // Increased typing speed for paragraph
-
-    // Clear initial text content
-    typewriterHeader.innerText = '';
-    typewriterParagraph.innerHTML = '';
-
-    // Typewriter effect function with adjustable typing speed
-    function typeWriter(element, text, i, typingSpeed, isParagraph = false) {
-        if (i < text.length) {
-            if(isParagraph && text.charAt(i) === '<' && text.substring(i, i+4) === '<br>') {
-                element.innerHTML += '<br>';
-                i += 4; // Skip the <br> tag characters
-            } else {
-                element.innerHTML += text.charAt(i);
-                i++;
-            }
-            setTimeout(function() {
-                typeWriter(element, text, i, typingSpeed, isParagraph);
-            }, typingSpeed);
-        }
-    }
-
-    // Initiate typewriting effect for header with its specific speed
-    typeWriter(typewriterHeader, headerText, 0, headerTypingSpeed);
-
-    // Initiate typewriting effect for paragraph with its specific speed
-    // Optionally, delay the start until the header is complete
-    setTimeout(function() {
-        typeWriter(typewriterParagraph, paragraphText, 0, paragraphTypingSpeed, true);
-    }, headerText.length * headerTypingSpeed);
-});
 
