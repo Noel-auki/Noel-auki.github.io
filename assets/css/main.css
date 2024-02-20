@@ -1,10 +1,29 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
-/*
-	Eventually by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
+
+@font-face {
+  font-family: 'MyFont';
+  src: url('../fonts/AvenirNextLTCom-Demi (1).woff2') format('woff2');
+  font-weight: 600; /* Demi is usually semi-bold or similar, commonly represented as 600 */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MyFont';
+  src: url('../fonts/AvenirNextLTCom-Light.woff2') format('woff2');
+  font-weight: 300; /* Light */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MyFont';
+  src: url('../fonts/AvenirNextLTCom-Regular.woff2') format('woff2');
+  font-weight: 400; /* Regular */
+  font-style: normal;
+}
+
+
+
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,
@@ -230,11 +249,13 @@ body {
 /* Type */
 body, input, select, textarea {
   color: rgba(255, 255, 255, 0.75);
-  font-family: "Roboto", sans-serif;
+  font-family: 'MyFont', sans-serif;
   font-size: 16pt;
   font-weight: 400;
   letter-spacing: -0.01em;
-  line-height: 1.65em; }
+  line-height: 1.65em;
+}
+
   @media screen and (max-width: 1680px) {
     body, input, select, textarea {
       font-size: 12pt; } }
@@ -791,13 +812,13 @@ button,
   input[type="button"]:hover,
   button:hover,
   .button:hover {
-    background-color: rgba(76, 175, 80, 0.7); }
+    background-color: #00A15D }
   input[type="submit"]:active,
   input[type="reset"]:active,
   input[type="button"]:active,
   button:active,
   .button:active {
-    background-color: rgba(76, 175, 80, 1); }
+    background-color: #00A15D }
   input[type="submit"].disabled, input[type="submit"]:disabled,
   input[type="reset"].disabled,
   input[type="reset"]:disabled,
@@ -845,12 +866,14 @@ button,
   #header h1 {
     font-size: 2em; }
   #header p {
+    text-align: justify;
     font-size: 1em; } }
 
 @media screen and (max-width: 480px) {
   #header {
     margin: 0 0 1em 0; }
     #header p {
+      text-align: justify;
       min-height: 220px;} }
 
 /* Signup Form */
