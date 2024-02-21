@@ -387,11 +387,20 @@ hr {
     .square {
       width: 100px;
       height: 100px;
-      border: 1px solid rgb(156, 175, 63);
+      border: 1px solid rgb(24, 25, 18);
       display: flex;
       align-items: center;
       justify-content: center;
     }
+
+    #end{
+    
+      background-color: #ffffff;
+    }
+    #start, #first{
+      background-color: #8BA1B9;
+    }
+
     #pawn {
       width: 80px; /* Adjust size as needed */
       cursor: grab;
