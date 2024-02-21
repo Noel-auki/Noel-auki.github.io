@@ -257,10 +257,13 @@ document.addEventListener('DOMContentLoaded', function() {
     var footer = document.getElementById('footer');
     var chessboard = document.getElementById('chessboard');
 	var instruction = document.getElementById('instruction');
+	var moveSound = new Audio('assets/piece_move.mp3');
+
 
     function movePawn(target) {
         if (target === start || target === end) {
             target.appendChild(pawn); // Move the pawn to the target square
+			moveSound.play();
         }
         revealContent(); // Proceed to reveal the content
     }
