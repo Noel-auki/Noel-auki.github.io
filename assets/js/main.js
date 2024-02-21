@@ -1,8 +1,3 @@
-/*
-	Eventually by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
 
 (function() {
 
@@ -134,140 +129,128 @@
 		
 		
 
-	// Signup Form.
-		(function() {
-
-			// Vars.
-				var $form = document.querySelectorAll('#signup-form')[0],
-					$submit = document.querySelectorAll('#signup-form input[type="submit"]')[0],
-					$message;
-
-			// Bail if addEventListener isn't supported.
-				if (!('addEventListener' in $form))
-					return;
-
-			// Message.
-				$message = document.createElement('span');
-					$message.classList.add('message');
-					$form.appendChild($message);
-
-				$message._show = function(type, text) {
-
-					$message.innerHTML = text;
-					$message.classList.add(type);
-					$message.classList.add('visible');
-
-					window.setTimeout(function() {
-						$message._hide();
-					}, 3000);
-
-				};
-
-				$message._hide = function() {
-					$message.classList.remove('visible');
-				};
-
-			// Events.
-			// Note: If you're *not* using AJAX, get rid of this event listener.
-				$form.addEventListener('submit', function(event) {
-
-					event.stopPropagation();
-					event.preventDefault();
-
-					// Hide message.
-						$message._hide();
-
-					// Disable submit.
-						$submit.disabled = true;
-
-					// Process form.
-					// Note: Doesn't actually do anything yet (other than report back with a "thank you"),
-					// but there's enough here to piece together a working AJAX submission call that does.
-						window.setTimeout(function() {
-
-							// Reset form.
-								$form.reset();
-
-							// Enable submit.
-								$submit.disabled = false;
-
-							// Show message.
-								$message._show('success', 'Thank you!');
-								//$message._show('failure', 'Something went wrong. Please try again.');
-
-						}, 750);
-
-				});
-
-		})();
 
 })();
 
+function displayWelcomeMessage() {
+	var signupForm = document.getElementById('signup-form');
+	console.log("Welcome Message")
+ 			// Fade out the header before updating content
+			 header.style.opacity = 0;
+			 console.log("opacity 1")
+			 signupForm.style.opacity = 0;
+			 console.log("opacity 0")
+		
+			 // Wait for the fade-out animation to complete
+			 setTimeout(function() {
+				console.log("Contents displayed")
+				 // Update header content
+				 header.innerHTML = '<h1>Welcome Aboard</h1>' +
+				 '<p>We\'ve Got Your Queen Covered! Relax and Be Discovered in the Nearby Chess. ' +
+				 '(Keep an Eye Out for Your Email!)</p>';
+		 
+				 // Reset min-height for the paragraph if needed
+				 var newParagraph = document.querySelector('#header p');
+				 if(newParagraph) {
+					 newParagraph.style.minHeight = '0';
+				 }
+		 
+				 // Fade in the updated content
+				 header.style.opacity = 1;
+				 // hide the signup form
+				 signupForm.style.display = 'none';
+		 
+			 }, 500); // Adjust this timeout to match the fade-out duration
+}
 
-// document.addEventListener('DOMContentLoaded', function() {
-//     var pawn = document.getElementById('pawn');
-//     var end = document.getElementById('end');
-//     var header = document.getElementById('header');
-//     var signupForm = document.getElementById('signup-form');
-//     var footer = document.getElementById('footer');
-//     var chessboard = document.getElementById('chessboard');
-// 	var instruction = document.getElementById('instruction');
+(function() {
+    // Vars.
+    var $form = document.querySelectorAll('#signup-form')[0],
+        $submit = document.querySelectorAll('#signup-form input[type="submit"]')[0],
+        $email = document.getElementById('email'),
+        $message;
 
-//     // Function to reveal content smoothly
-// 	function revealContent() {
-// 		// Apply fade-out effect to chessboard
-// 		chessboard.style.opacity = '0'
-// 		instruction.style.opacity = '0';
-	
-// 		// Wait for the fade-out transition to finish before hiding and showing content
-// 		setTimeout(function() {
-// 			chessboard.style.display = 'none'; // Completely hide the chessboard
-// 			instruction.style.display = 'none';
-	
-// 			// Prepare elements for fade-in
-// 			header.style.opacity = '0';
-// 			header.style.display = 'block';
-// 			footer.style.opacity = '0';
-// 			footer.style.display = 'block';
-	
-// 			// Start the fade-in effect for header, signupForm, and footer
-// 			setTimeout(function() {
-// 				header.style.opacity = '1';
-// 				signupForm.style.opacity = '1';
-// 				footer.style.opacity = '1';
-// 			}, 10); // Short delay to ensure properties are applied
-	
-// 		}, 1000); // This delay should match the CSS transition timing for the chessboard
-// 	}
-	
-// 	// Event listeners for pawn interaction remain unchanged
-	
-	
+    // Bail if addEventListener isn't supported.
+    if (!('addEventListener' in $form))
+        return;
 
-//     // Desktop: Drag and Drop
-//     pawn.addEventListener('dragstart', function(event) {
-//         event.dataTransfer.setData('text/plain', null);
-//     });
-//     end.addEventListener('dragover', function(event) {
-//         event.preventDefault();
-//     });
-//     end.addEventListener('drop', function(event) {
-//         event.preventDefault();
-//         end.appendChild(pawn); // Move the pawn to the end square
-//         revealContent();
-//     });
+    // Message.
+    $message = document.createElement('span');
+    $message.classList.add('message');
+    $form.appendChild($message);
 
-//     // Mobile: Tap
-//     pawn.addEventListener('touchend', function(event) {
-//         end.appendChild(pawn); // Visual indication that pawn has moved
-//         revealContent();
-//     });
+    $message._show = function(type, text) {
+		$message.classList.remove('success', 'failure');
+		
+        $message.innerHTML = text;
+        $message.classList.add(type);
+        $message.classList.add('visible');
 
-//     // Initially hide the main content
-//     header.style.display = 'none';
-//     signupForm.style.display = 'none';
-//     footer.style.display = 'none';
-// });
+        window.setTimeout(function() {
+            $message._hide();
+        }, 3000);
+    };
+
+    $message._hide = function() {
+        $message.classList.remove('visible');
+    };
+
+    // Email validation function
+    function validateEmail(email) {
+        var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    // Form submit event.
+    $form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        // Validate email
+        if ($email.value === '' || !validateEmail($email.value)) {
+            $message._show('failure', 'Invalid email. Please enter a correct email.');
+            return; // Stop here if validation fails
+        }
+
+        // Hide message.
+        $message._hide();
+
+        // Process form (Here you would include your AJAX call as before)
+		var formData = new FormData($form);
+        
+		// Fetch API to send the form data to the Google Apps Script Web App
+		fetch($form.action, {
+			method: 'POST',
+			mode: 'no-cors',
+			body: formData,
+		})
+		.then(response => response.text()) // Or .json() if your server responds with JSON
+		.then(data => {
+			console.log('Success:', data);
+								// Process form
+								window.setTimeout(function() {
+
+									// Reset form.
+										$form.reset();
+		
+									// Enable submit.
+										$submit.disabled = false;
+		
+									// Show message.
+										$message._show('success', 'Thank you!');
+		
+										displayWelcomeMessage()
+								}, 750);
+		})
+		.catch((error) => {
+			console.error('Error:', error);
+			$message._show('failure', 'Registeration Failed');
+			// Here you can show an error message
+		});
+    });
+})();
+
+
 document.addEventListener('DOMContentLoaded', function() {
     var pawn = document.getElementById('pawn');
     var start = document.getElementById('start');

@@ -394,7 +394,6 @@ hr {
     }
 
     #end{
-    
       background-color: #ffffff;
     }
     #start, #first{
@@ -553,7 +552,7 @@ form {
       form .message.success:before {
         content: '\f00c'; }
     form .message.failure {
-      color: #ff2361; }
+      color: #ff232a; }
       form .message.failure:before {
         content: '\f119'; }
 
@@ -842,6 +841,7 @@ button,
     @media screen and (max-width: 480px){
       .button{
         width: -webkit-fill-available;
+        font-size: 12pt;
       }
     }
   
