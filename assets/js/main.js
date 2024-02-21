@@ -214,8 +214,7 @@ function displayWelcomeMessage() {
 
         // Hide message.
         $message._hide();
-
-        // Process form (Here you would include your AJAX call as before)
+		
 		var formData = new FormData($form);
         
 		// Fetch API to send the form data to the Google Apps Script Web App
@@ -226,27 +225,25 @@ function displayWelcomeMessage() {
 		})
 		.then(response => response.text()) // Or .json() if your server responds with JSON
 		.then(data => {
-			console.log('Success:', data);
-								// Process form
-								window.setTimeout(function() {
-
-									// Reset form.
-										$form.reset();
-		
-									// Enable submit.
-										$submit.disabled = false;
-		
-									// Show message.
-										$message._show('success', 'Thank you!');
-		
-										displayWelcomeMessage()
-								}, 750);
+			displayWelcomeMessage()
 		})
 		.catch((error) => {
 			console.error('Error:', error);
 			$message._show('failure', 'Registeration Failed');
 			// Here you can show an error message
 		});
+
+		window.setTimeout(function() {
+
+			// Reset form.
+				$form.reset();
+
+			// Enable submit.
+				$submit.disabled = false;
+
+			// Show message.
+				$message._show('success', 'Thank you!');
+		}, 750);
     });
 })();
 
@@ -338,7 +335,7 @@ function startTypewriterEffect() {
    
 	   // Typing speed in milliseconds
 	   var headerTypingSpeed = 150; // Original typing speed for header
-	   var paragraphTypingSpeed = 30; // Increased typing speed for paragraph
+	   var paragraphTypingSpeed = 20; // Increased typing speed for paragraph
    
 	   // Clear initial text content
 	   typewriterHeader.innerText = '';
