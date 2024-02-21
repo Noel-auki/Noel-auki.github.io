@@ -197,7 +197,7 @@ function displayWelcomeMessage() {
 
     // Email validation function
     function validateEmail(email) {
-        var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         return re.test(email);
     }
 
@@ -242,7 +242,7 @@ function displayWelcomeMessage() {
 				$submit.disabled = false;
 
 			// Show message.
-				$message._show('success', 'Thank you!');
+				$message._show('success', 'Submiting Your Request');
 		}, 750);
     });
 })();

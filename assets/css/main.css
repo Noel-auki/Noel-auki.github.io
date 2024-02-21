@@ -911,7 +911,7 @@ button,
       #signup-form input[type="type"],
       #signup-form input[type="password"],
       #signup-form input[type="email"] {
-        width: 100%; }
+        width: -webkit-fill-available; }
       #signup-form > * {
         margin: 1.25em 0 0 0; }
       #signup-form .message {
@@ -921,7 +921,11 @@ button,
         left: 0;
         line-height: inherit;
         margin-top: 0;
-        position: absolute; } }
+        position: absolute; } 
+        
+        #signup-form input[type="text"]{
+          width: -webkit-fill-available;
+        }}
 
 /* Footer */
 #footer {
